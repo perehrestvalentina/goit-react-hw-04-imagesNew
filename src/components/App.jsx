@@ -22,13 +22,16 @@ export default function App() {
     async function addImages() {
       try {
         setIsLoading(true);
+
         const data = await API.getImages(imageName, currentPage);
-        if (data.hits.length === 0) {
+        if (data.hits.length < 1) {
           toast.info('sorry images not found');
           return;
         }
         const normalizedImages = API.normalizedImages(data.hits);
+
         setImages(prevImages => [...prevImages, ...normalizedImages]);
+
         setTotalPages(Math.ceil(data.totalHits / 12));
       } catch (error) {
         toast.error('something went wrong');
