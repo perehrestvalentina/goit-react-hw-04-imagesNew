@@ -1,8 +1,6 @@
 import { useState } from 'react';
-// import PropTypes from 'prop-types';
 import css from './Searchbar.module.css';
 import { BsSearch } from 'react-icons/bs';
-// import toast, { Toaster } from 'react-hot-toast';
 
 export const Searchbar = ({ onSubmit }) => {
   const [imageName, setImageName] = useState('');
@@ -20,12 +18,6 @@ export const Searchbar = ({ onSubmit }) => {
   return (
     <header className={css.Searchbar}>
       <form className={css.SearchForm} onSubmit={onHendleSubmit}>
-        <button type="submit" className={css.SearchForm_button}>
-          <span className={css.SearchForm_button_label}>
-            <BsSearch />
-          </span>
-        </button>
-
         <input
           className={css.SearchForm_input}
           type="text"
@@ -36,12 +28,13 @@ export const Searchbar = ({ onSubmit }) => {
           autoFocus
           placeholder="Search images and photos"
         />
+
+        <button type="submit" className={css.SearchForm_button}>
+          <span className={css.SearchForm_button_label}>
+            <BsSearch />
+          </span>
+        </button>
       </form>
     </header>
   );
 };
-
-// Searchbar.propTypes = {
-//   onSubmit: PropTypes.func.isRequired,
-//   imageName: PropTypes.string,
-// };

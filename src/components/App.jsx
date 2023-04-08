@@ -1,12 +1,10 @@
 import { useState, useEffect } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
-
 import * as API from 'api';
 import { Searchbar } from './Searchbar/Searchbar';
 import { ImageGallery } from './ImageGallery/ImageGallery';
 import { Loader } from './Loader/Loader';
 import { Button } from './Button/Button';
-
 import css from './App.module.css';
 
 export default function App() {
@@ -31,9 +29,8 @@ export default function App() {
         }
         const normalizedImages = API.normalizedImages(data.hits);
         setImages(prevImages => [...prevImages, ...normalizedImages]);
-        setIsLoading(false);
         setTotalPages(Math.ceil(data.totalHits / 12));
-      } catch {
+      } catch (error) {
         toast.error('something went wrong');
       } finally {
         setIsLoading(false);
@@ -60,7 +57,13 @@ export default function App() {
       ) : (
         <p className={css.looking}>What do you want to find? </p>
       )}
-      {isLoading && <Loader />}
+
+      {isLoading && (
+        <div className={css.loading}>
+          <Loader />
+        </div>
+      )}
+
       {images.length > 0 && totalPages !== currentPage && !isLoading && (
         <Button onClick={loadMore} />
       )}
